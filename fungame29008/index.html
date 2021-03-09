@@ -7,10 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-store">
     <meta http-equiv="Pragma" content="no-store">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta property="og:url" content="http://game.bestvideo.cc"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="Fun Game-No install，Enjoy the best casual game center!"/>
-    <meta property="og:description" content="No install，Enjoy the best casual game center!"/>
+
     <title>Fun Game-The best casual game center which you don't need to download any app!</title>
     <meta name="keywords"
           content="Action games,Arcade games,Sports game,Card game,Boards game,Puzzle game,Easy game,Beautiful game,Girl game, Strategy game,Defense game,Risk game,Cool math games,Brain games,Dress up games and make up games,Cooking games,Jump games,Football and basketball games,Zombie games,Rich content, Lots of fun, Extreme classic, Instant update, Completely free"/>
@@ -484,7 +481,7 @@
     }
 </script>
 </html>
-<script src="../assets/util.js?v=2020.3.19"></script>
+<script src="../assets/util.js"></script>
 <!-- <script src="/assets/pwa.js"></script> -->
 <script>
     var js_game_list = {
@@ -1993,7 +1990,6 @@
         pageIndex++;
         var backOn = false;
         window.sessionStorage.setItem(channel_id + 'pageIndex', pageIndex);
-        var host = window.location.host;
         getGameData(function (data) {
             // var obj=JSON.parse(data);
             var obj = data;
@@ -2225,7 +2221,6 @@
                             '</div>' +
                             '</div>';
                         $('body').append(popStr);
-                        getSaLog({'act': 'call', 'ad_flag': 'pop', '_id': _id})
                         window.sessionStore.setSession('popIsShow', 'false');
                     }
                     if (ggObj.back_on != undefined && ggObj.back_on == "true") {
@@ -2283,64 +2278,6 @@
             }, 1000);
         }
 
-        function ggClick() {
-            var adDomArr;
-            var mySetInterval = setInterval(function () {
-                adDomArr = $('.mask');
-                if (adDomArr.length <= 0) clearInterval(mySetInterval);
-                for (var i = 0; i < adDomArr.length; i++) {
-                    (function (adDom) {
-                        var gg_flag = adDom.data('flag');
-                        var gg_id = adDom.data('_id');
-                        var ifr = adDom.find('iframe')[0];
-                        if (ifr != undefined) {
-                            adDom.removeClass('mask');
-                            IframeOnClick.track(ifr, function () {
-                                getSaLog({'act': 'clk', ad_flag: gg_flag, '_id': gg_id});
-                            }, false);
-                        } else {
-
-
-                        }
-
-                    })(adDomArr.eq(i))
-                }
-            }, 200);
-        }
-
-        $('body').on('click', '.pop-box img,.bonus-box img', function () {
-            var adDom = $(this);
-            var gg_flag = adDom.data('flag');
-            var gg_id = adDom.data('_id');
-            var gg_url = adDom.data('url');
-            window.open(gg_url);
-            getSaLog({'act': 'clk', ad_flag: gg_flag, '_id': gg_id});
-        })
-
-        // 广告响应
-        function ggResp() {
-            setTimeout(function () {
-                var ggArr = $("[id^='div-gpt-ad-']");
-                for (var i = 0; i < ggArr.length; i++) {
-                    (function (item) {
-                        var w = item.width();
-                        var h = item.height();
-                        var adDom = item.parent();
-                        var gg_flag = adDom.data('flag');
-                        var gg_id = adDom.data('_id');
-                        // 没有返回广告上报统计
-                        if (w == 300 && h == 250 || w == 320 && h == 50) {
-                            getSaLog({'act': 'resp', ad_flag: gg_flag, '_id': gg_id});
-                        }
-                    })(ggArr.eq(i))
-                }
-            }, 3000);
-        }
-
-        if (!visual_loading) {
-            ggResp();
-        }
-
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = window.location.search.substr(1).match(reg);
@@ -2367,9 +2304,7 @@
                         'data-_id': item._id
                     });
                     item.flag = false;
-                    getSaLog({'act': 'call', 'ad_flag': item.ad_flag, '_id': item._id});
-                    ggResp();
-                    ggClick();
+
                 }
             }
         }
