@@ -360,7 +360,7 @@
         <div class="app-detail" id="detail">
 					<span class="span-img">
 						<img src="" class="logo" alt="" title="">
-						<img src="http://s.dailyreadingnews.com/app/t2/static/dist/images/border-img.png"/>
+						<img src="./border-img.png"/>
 					</span>
             <span class="span-text">
 						<span class="name"></span>
@@ -1960,7 +1960,7 @@
                         var detailVal = obj;
                         $detail.find('.name').html(detailVal.name);
                         $detail.find('.logo').attr({
-                            'src': '//s.dailyreadingnews.com/app/t2/' + detailVal.img,
+                            'src': '../' + detailVal.img,
                             'alt': detailVal.name,
                             'title': detailVal.name
                         });
@@ -2103,32 +2103,9 @@
             var gg_id = adDom.data('_id');
             var gg_url = adDom.data('url');
             window.open(gg_url);
-            getSaLog({'act': 'clk', ad_flag: gg_flag, '_id': gg_id});
         })
 
-        // 广告响应
-        function ggResp() {
-            setTimeout(function () {
-                var ggArr = $("[id^='div-gpt-ad-']");
-                for (var i = 0; i < ggArr.length; i++) {
-                    (function (item) {
-                        var w = item.width();
-                        var h = item.height();
-                        var adDom = item.parent();
-                        var gg_flag = adDom.data('flag');
-                        var gg_id = adDom.data('_id');
-                        // 没有返回广告上报统计
-                        if (w == 300 && h == 250 || w == 320 && h == 50) {
-                            getSaLog({'act': 'resp', ad_flag: gg_flag, '_id': gg_id});
-                        }
-                    })(ggArr.eq(i))
-                }
-            }, 3000);
-        }
 
-        if (!visual_loading) {
-            ggResp();
-        }
         // window.addEventListener('scroll',function(){
         // 	scrollLoadGg(ggListArr);
         // })
